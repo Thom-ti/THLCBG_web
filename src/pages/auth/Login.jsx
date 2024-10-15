@@ -1,7 +1,37 @@
-import React from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import useUserStore from "../../stores/userStore";
+import { toast } from "react-toastify";
 
 const Login = () => {
+  const [form, setForm] = useState({
+    email: "",
+    password: "",
+  });
+
+  const login = useUserStore((state) => state.login);
+
+  const hdlOnChange = (e) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const hdlLogin = async (e) => {
+    try {
+      e.preventDefault();
+      if (!(form.email.trim() && form.password.trim())) {
+        return toast.info("Please fill all inputs");
+      }
+      const data = await login(form);
+    } catch (err) {
+      const errMsg = err.response?.data?.error || err.message;
+      console.log(errMsg);
+      toast.error(errMsg);
+    }
+  };
+
   return (
     <div className="flex items-center justify-center min-h-screen">
       <div className="bg-white p-8 rounded-lg shadow-lg w-96">
@@ -9,12 +39,15 @@ const Login = () => {
           <i className="fas fa-arrow-left text-xl"></i>
         </div>
         <h1 className="text-3xl font-bold text-center mb-2">TH - LC - BG</h1>
-        <p className="text-center mb-6">Welcome Back !</p>
-        <form>
+        <p className="text-center mb-6">Please Log in !</p>
+        <form onSubmit={hdlLogin}>
           <div className="mb-4">
             <label className="block text-gray-700">Email</label>
             <input
+              name="email"
               type="email"
+              value={form.email}
+              onChange={hdlOnChange}
               className="w-full px-3 py-2 border rounded-lg"
               placeholder="Your Email"
             />
@@ -23,7 +56,10 @@ const Login = () => {
             <label className="block text-gray-700">Password</label>
             <div className="relative">
               <input
+                name="password"
                 type="password"
+                value={form.password}
+                onChange={hdlOnChange}
                 className="w-full px-3 py-2 border rounded-lg"
                 placeholder="Your Password"
               />
