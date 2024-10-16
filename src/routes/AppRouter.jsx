@@ -3,13 +3,14 @@ import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom'
 import Layout from '../layouts/Layout'
 import UserLayout from '../layouts/UserLayout'
 import Home from '../pages/Home'
-import Boardgames from '../pages/Boardgames'
+import Boardgames from '../pages/boardgame/Boardgames'
 import MyShelf from '../pages/user/MyShelf'
 import Register from '../pages/auth/Register'
 import Login from '../pages/auth/Login'
 import PageNotFound from '../pages/PageNotFound'
 import useUserStore from '../stores/userStore'
 import Posts from '../pages/Posts'
+import ViewBoardGame from '../pages/boardgame/ViewBoardGame'
 
 const guestRouter = createBrowserRouter([
   {
@@ -31,6 +32,7 @@ const userRouter = createBrowserRouter([
     children: [
       { index: true, element: <Home /> },
       { path: "boardgames", element: <Boardgames /> },
+      { path: "boardgames/:id", element: <ViewBoardGame /> },
       { path: "myshelf", element: <MyShelf /> },
       { path: "posts", element: <Posts /> },
       { path: "*", element: <Home /> },
