@@ -16,7 +16,7 @@ const Navbar = () => {
           <Link to="/myshelf">MY SHELF</Link>
         </li>
         <li className="text-white hover:scale-105 hover:-translate-y-1 duration-200 hover:cursor-pointer hover:text-black">
-          <Link to="/posts">HOW TO PLAY & REVIEWS</Link>
+          <Link to="/posts">POSTS</Link>
         </li>
       </ul>
       <div className="flex space-x-4">
