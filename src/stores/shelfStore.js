@@ -20,6 +20,17 @@ const useShelfStore = create((set, get) => ({
     });
     set({ myShelf: result.data.shelf[0].shelfBoardgames });
   },
+  updateStatus: async (token, body, id) => {
+    const result = await axios.patch(
+      `http://localhost:8000/myshelf/${id}`,
+      body,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+  },
   deleteFromShelf: async (token, id) => {
     await axios.delete(`http://localhost:8000/myshelf/${id}`, {
       headers: {

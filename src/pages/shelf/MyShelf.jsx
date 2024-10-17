@@ -60,20 +60,22 @@ const MyShelf = () => {
         </div>
       ) : (
         <table className="table w-full">
-          <tr>
-            <th className="border text-center">Game</th>
-            <th className="border text-center">Name</th>
-            <th className="border text-center">Status</th>
-            <th className="border text-center">Delete</th>
-          </tr>
-          {myShelf?.map((boardgame) => (
-            <ShelfItem
-              handleDelete={handleDelete}
-              key={boardgame.id}
-              boardgame={boardgame}
-              isThai={isThai}
-            />
-          ))}
+          <tbody>
+            <tr>
+              <th className="border text-center">Game</th>
+              <th className="border text-center">Name</th>
+              <th className="border text-center">Status</th>
+              <th className="border text-center">Delete</th>
+            </tr>
+            {myShelf?.map((boardgame) => (
+              <ShelfItem
+                handleDelete={handleDelete}
+                key={boardgame.id}
+                boardgame={boardgame}
+                isThai={isThai}
+              />
+            ))}
+          </tbody>
         </table>
       )}
     </div>

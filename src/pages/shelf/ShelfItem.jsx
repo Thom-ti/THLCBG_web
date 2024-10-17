@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import useUserStore from "../../stores/userStore";
 import useShelfStore from "../../stores/shelfStore";
@@ -7,7 +7,31 @@ const ShelfItem = (props) => {
   const { boardgame, isThai, handleDelete } = props;
 
   const token = useUserStore((state) => state.token);
-  const deleteFromShelf = useShelfStore((state) => state.deleteFromShelf);
+  const getMyShelf = useShelfStore((state) => state.getMyShelf);
+  const updateStatus = useShelfStore((state) => state.updateStatus);
+
+  const handleOnChange = async (e) => {
+    try {
+      const body = {
+        status: e.target.value,
+      }
+      await updateStatus(token, body, boardgame.boardgame.id);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleOnClick = async (e) => {
+    try {
+      const body = {
+        status: null,
+      }
+      await updateStatus(token, body, boardgame.boardgame.id);
+      await getMyShelf(token);
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   return (
     <tr>
@@ -22,25 +46,15 @@ const ShelfItem = (props) => {
         </Link>
       </td>
       <td className="border">
-        <div className="dropdown">
-          <div tabIndex={0} role="button" className="btn m-1">
+        <select className="select" onChange={handleOnChange}>
+          <option disabled selected>
             {boardgame.status || "Status"}
-          </div>
-          <ul
-            tabIndex={0}
-            className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow"
-          >
-            <li>
-              <a>Own</a>
-            </li>
-            <li>
-              <a>Previously Owned</a>
-            </li>
-            <li>
-              <a>Others</a>
-            </li>
-          </ul>
-        </div>
+          </option>
+          <option value="Own">Own</option>
+          <option value="Previously Owned">Previously Owned</option>
+          <option value="Others">Others</option>
+        </select>
+        <button className="btn" onClick={handleOnClick}>Reset Status</button>
       </td>
       <td className="border">
         <button

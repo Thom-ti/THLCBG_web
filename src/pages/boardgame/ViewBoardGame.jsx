@@ -28,8 +28,7 @@ const ViewBoardGame = () => {
 
   const handleAddToShelf = async () => {
     try {
-      const result = await addToShelf(token, boardgame);
-      console.log(result);
+      await addToShelf(token, boardgame);
       toast.success("Add to shelf successfully");
     } catch (err) {
       console.log(err);
