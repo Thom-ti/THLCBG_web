@@ -11,7 +11,7 @@ const BoardgameItem = (props) => {
           key={boardgame.id}
           className="flex items-center justify-center text-center font-bold text-blue-500 active:text-blue-800"
         >
-          {isThai ? boardgame.thaiName || boardgame.name : boardgame.name}
+          {(isThai && boardgame.thaiName) || boardgame.name}
         </div>{" "}
       </Link>
     </div>

@@ -63,8 +63,8 @@ const MyShelf = () => {
           <tbody>
             <tr>
               <th className="border text-center">Game</th>
-              <th className="border text-center">Name</th>
-              <th className="border text-center">Status</th>
+              <th className="border text-center w-1/2">Name</th>
+              <th className="border text-center ">Status</th>
               <th className="border text-center">Delete</th>
             </tr>
             {myShelf?.map((boardgame) => (

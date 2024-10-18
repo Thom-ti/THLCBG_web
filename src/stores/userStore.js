@@ -21,6 +21,18 @@ const useUserStore = create(
         );
       },
       logout: () => set({ user: null, token: "" }),
+      currentUser: async (token) => {
+        const result = await axios.post(
+          "http://localhost:8000/auth/current-user",
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        return result;
+      },
     }),
     {
       name: "state",

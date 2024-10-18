@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useUserStore from "../../stores/userStore";
 import { toast } from "react-toastify";
 
@@ -9,6 +9,7 @@ const Login = () => {
     password: "",
   });
 
+  const navigate = useNavigate();
   const login = useUserStore((state) => state.login);
 
   const hdlOnChange = (e) => {
@@ -25,6 +26,7 @@ const Login = () => {
         return toast.info("Please fill all inputs");
       }
       const data = await login(form);
+      navigate("/");
     } catch (err) {
       const errMsg = err.response?.data?.error || err.message;
       console.log(errMsg);

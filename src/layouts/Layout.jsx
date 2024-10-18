@@ -7,7 +7,7 @@ const Layout = () => {
     <div className="flex h-screen w-screen overflow-hidden">
       <div className="flex flex-col flex-1">
         <Navbar />
-        <div className="flex-1 min-h-0 overflow-auto justify-center items-center">
+        <div className="flex flex-1 min-h-0 overflow-auto justify-center items-center">
           <Outlet />
         </div>
       </div>

@@ -1,4 +1,4 @@
-import React from "react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useShallow } from "zustand/shallow";
 import useUserStore from "../stores/userStore";
@@ -10,6 +10,7 @@ const UserNavbar = () => {
       logout: state.logout,
     }))
   );
+
   return (
     <div className="flex items-center justify-between p-4 border-b border-gray-200 bg-[#FFB22C]">
       <div className="text-3xl font-bold text-white">TH-LC-BG</div>
@@ -39,7 +40,7 @@ const UserNavbar = () => {
             <Link to="/myshelf">MY SHELF</Link>
           </li>
           <li onClick={logout}>
-            <Link to="/">Logout</Link>
+            <Link to="/">Log out</Link>
           </li>
         </ul>
       </div>
