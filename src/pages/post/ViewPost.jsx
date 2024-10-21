@@ -10,6 +10,7 @@ const ViewPost = () => {
   const [post, setPost] = useState({});
   const publishedDate = moment(`${post.createdAt}`).format("DD/MMM/YY");
   const updatedDate = moment(`${post.updatedAt}`).format("DD/MMM/YY");
+  const user = useUserStore((state) => state.user);
   const token = useUserStore((state) => state.token);
   const viewPost = usePostStore((state) => state.viewPost);
 
