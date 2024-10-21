@@ -30,24 +30,26 @@ const ShelfItem = (props) => {
   };
 
   return (
-    <tr>
-      <td className="border w-40 h-40">
-        <img src={boardgame.boardgame.boardgameImage} className="size-full" />
+    <tr className="hover:bg-gray-100 transition duration-200">
+      <td className="border w-40 h-40 p-2">
+        <img
+          src={boardgame.boardgame.boardgameImage}
+          alt={boardgame.boardgame.name}
+          className="w-full h-full object-cover rounded-lg shadow-md"
+        />
       </td>
-      <td className="border font-bold text-blue-500 active:text-blue-800">
+      <td className="border font-bold text-blue-500 hover:text-blue-700 transition duration-200">
         <Link to={`/boardgames/${boardgame.boardgame.id}`}>
           {(isThai && boardgame.boardgame.thaiName) || boardgame.boardgame.name}
         </Link>
       </td>
       <td className="border">
         <select
-          className="select"
+          className="select border rounded-lg p-2"
           onChange={(e) => handleOnChange(e, boardgame.boardgame.id)}
           defaultValue={status}
         >
-          <option disabled selected>
-            Please select status.
-          </option>
+          <option disabled>Please select status.</option>
           {statusList.map((status) => (
             <option key={status} value={status}>
               {status}
@@ -57,7 +59,7 @@ const ShelfItem = (props) => {
       </td>
       <td className="border">
         <button
-          className="bg-[#FF4C4C] hover:bg-[#C80D0D] text-white font-bold p-4 rounded"
+          className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg transition duration-200"
           onClick={() => handleDelete(boardgame.boardgame.id)}
         >
           Delete

@@ -9,15 +9,17 @@ import UserLayout from "../layouts/UserLayout";
 import AdminLayout from "../layouts/AdminLayout";
 import Home from "../pages/Home";
 import Boardgames from "../pages/boardgame/Boardgames";
+import ViewBoardGame from "../pages/boardgame/ViewBoardGame";
 import MyShelf from "../pages/shelf/MyShelf";
 import Register from "../pages/auth/Register";
 import Login from "../pages/auth/Login";
-import Unauthorization from "../pages/Unauthorization";
-import Posts from "../pages/Posts";
-import ViewBoardGame from "../pages/boardgame/ViewBoardGame";
+import Posts from "../pages/post/Posts";
+import ViewPost from "../pages/post/ViewPost";
 import ProtectRoute from "./ProtectRoute";
+import Unauthorization from "../pages/Unauthorization";
 import Manage from "../pages/admin/Manage";
 import useUserStore from "../stores/userStore";
+import CreatePost from "../pages/boardgame/CreatePost";
 
 const guestRouter = createBrowserRouter([
   {
@@ -42,9 +44,11 @@ const userRouter = createBrowserRouter([
     children: [
       { index: true, element: <Home /> },
       { path: "boardgames", element: <Boardgames /> },
-      { path: "boardgames/:id", element: <ViewBoardGame /> },
+      { path: "boardgames/:boardgameId", element: <ViewBoardGame /> },
       { path: "myshelf", element: <MyShelf /> },
       { path: "posts", element: <Posts /> },
+      { path: "posts/:postId", element: <ViewPost /> },
+      { path: "posts/create-post", element: <CreatePost /> },
       { path: "*", element: <Home /> },
     ],
   },

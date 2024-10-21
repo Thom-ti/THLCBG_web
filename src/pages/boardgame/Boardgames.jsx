@@ -15,18 +15,22 @@ const Boardgames = () => {
   }, []);
 
   return (
-    <div>
-      <div className="form-control bg-red-200 w-1/5">
+    <div className="p-6 bg-gray-100 min-h-screen">
+      {/* Button */}
+      <div className="form-control mb-6 bg-[#AFE472] p-2 rounded-md shadow-md">
         <label className="label cursor-pointer">
           <span className="label-text font-bold">แสดงชื่อไทยของบอร์ดเกม</span>
           <input
             type="checkbox"
-            className="toggle"
+            className="toggle toggle-primary ml-4"
+            checked={isThai}
             onChange={() => setIsThai(!isThai)}
           />
         </label>
       </div>
-      <div className="w-full overflow-auto flex flex-wrap gap-4 justify-around">
+
+      {/* Boardgames */}
+      <div className="w-full overflow-auto flex flex-wrap gap-4 justify-center">
         {boardgames.map((boardgame) => (
           <BoardgameItem
             key={boardgame.id}

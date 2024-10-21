@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import useUserStore from "../../stores/userStore";
 import useBoardgameStore from "../../stores/boardgameStore";
 import useShelfStore from "../../stores/shelfStore";
@@ -7,19 +7,19 @@ import { FaArrowLeftLong } from "react-icons/fa6";
 import { toast } from "react-toastify";
 
 const ViewBoardGame = () => {
-  const { id } = useParams();
+  const { boardgameId } = useParams();
   const [boardgame, setBoardgame] = useState({});
   const token = useUserStore((state) => state.token);
   const viewBoardGame = useBoardgameStore((state) => state.viewBoardGame);
   const addToShelf = useShelfStore((state) => state.addToShelf);
 
   useEffect(() => {
-    getBoardgame(id);
+    getBoardgame(boardgameId);
   }, []);
 
-  const getBoardgame = async (id) => {
+  const getBoardgame = async (boardgameId) => {
     try {
-      const res = await viewBoardGame(token, id);
+      const res = await viewBoardGame(token, boardgameId);
       setBoardgame(res.data.boardgame);
     } catch (err) {
       console.log(err);
@@ -37,56 +37,71 @@ const ViewBoardGame = () => {
   };
 
   return (
-    <div className="p-4 flex flex-col justify-center items-center">
-      <div className="flex flex-col mt-10 bg-white p-4 rounded shadow-md">
-        <div className="cursor-pointer" onClick={() => window.history.back()}>
-          <FaArrowLeftLong />
+    <div className="p-6 flex flex-col justify-center items-center bg-gray-100 min-h-screen">
+      <div className="flex flex-col mt-10 bg-white p-6 rounded-lg shadow-lg max-w-2xl w-full">
+        {/* Back Button */}
+        <div
+          className="cursor-pointer mb-4"
+          onClick={() => window.history.back()}
+        >
+          <FaArrowLeftLong className="text-blue-600 hover:text-blue-800 transition" />
         </div>
-        <div className="w-100 h-80">
+
+        {/* Boardgame Image */}
+        <div className="w-full h-80 mb-4">
           <img
             src={boardgame.boardgameImage}
-            className="w-full h-full object-contain rounded"
+            alt={boardgame.name}
+            className="w-full h-full object-contain rounded-lg shadow"
           />
         </div>
-        <div className="ml-4 flex flex-col">
-          <h1 className="text-lg font-bold items-center justify-center text-center">
+
+        {/* Boardgame Details */}
+        <div className="flex flex-col">
+          <h1 className="text-xl font-bold text-center text-blue-600 mb-2">
             {boardgame.name}
           </h1>
-          <table>
-            <tr>
-              <td>ชื่อภาษาไทย:</td>
-              <td>{boardgame.thaiName ? boardgame.thaiName : "-"}</td>
-            </tr>
-            <tr>
-              <td>จำนวนผู้เล่น:</td>
-              <td>
-                {boardgame.minPlayer === boardgame.maxPlayer
-                  ? boardgame.minPlayer
-                  : `${boardgame.minPlayer} - ${boardgame.maxPlayer}`}
-              </td>
-            </tr>
-            <tr>
-              <td>เหมาะกับอายุ:</td>
-              <td>{boardgame.age}+</td>
-            </tr>
-            <tr>
-              <td>หมวดหมู่:</td>
-              <td>{boardgame.category}</td>
-            </tr>
-            <tr>
-              <td>ลิขสิทธิ์แปลไทยโดย:</td>
-              <td>{boardgame.thaiLC}</td>
-            </tr>
+          <table className="w-full text-left mb-4">
+            <tbody>
+              <tr>
+                <td className="font-semibold">ชื่อภาษาไทย:</td>
+                <td>{boardgame.thaiName || "-"}</td>
+              </tr>
+              <tr>
+                <td className="font-semibold">จำนวนผู้เล่น:</td>
+                <td>
+                  {boardgame.minPlayer === boardgame.maxPlayer
+                    ? boardgame.minPlayer
+                    : `${boardgame.minPlayer} - ${boardgame.maxPlayer}`}
+                </td>
+              </tr>
+              <tr>
+                <td className="font-semibold">เหมาะกับอายุ:</td>
+                <td>{boardgame.age}+</td>
+              </tr>
+              <tr>
+                <td className="font-semibold">หมวดหมู่:</td>
+                <td>{boardgame.category}</td>
+              </tr>
+              <tr>
+                <td className="font-semibold">ลิขสิทธิ์แปลไทยโดย:</td>
+                <td>{boardgame.thaiLC}</td>
+              </tr>
+            </tbody>
           </table>
         </div>
+
+        {/* Add to Shelf Button */}
         <button
-          className="bg-green-700 text-white px-4 py-2 rounded"
+          className="bg-green-700 text-white px-6 py-2 rounded-lg mt-4 transition hover:bg-green-800"
           onClick={handleAddToShelf}
         >
           Add to My Shelf
         </button>
-        <div className="mt-4 bg-gray-200 p-4 text-center">
-          <p>{boardgame.description}</p>
+
+        {/* Description */}
+        <div className="mt-4 bg-gray-200 p-4 rounded-lg text-center">
+          <p className="text-sm">{boardgame.description}</p>
         </div>
       </div>
     </div>
