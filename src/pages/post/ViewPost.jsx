@@ -9,12 +9,12 @@ import { toast } from "react-toastify";
 const ViewPost = () => {
   const { postId } = useParams();
   const [post, setPost] = useState({});
-  const [isEditing, setIsEditing] = useState(false);
 
   const navigate = useNavigate();
 
   const publishedDate = moment(`${post.createdAt}`).format("DD/MMM/YY");
   const updatedDate = moment(`${post.updatedAt}`).format("DD/MMM/YY");
+
   const user = useUserStore((state) => state.user);
   const token = useUserStore((state) => state.token);
   const viewPost = usePostStore((state) => state.viewPost);
@@ -45,8 +45,37 @@ const ViewPost = () => {
     }
   };
 
-  // console.log("Post", post);
-  // console.log("User", user.user);
+  const [isEditing, setIsEditing] = useState(false);
+  const [updatedPost, setUpdatedPost] = useState({
+    title: post.title,
+    content: post.content,
+  });
+
+  const handleEditClick = () => {
+    setIsEditing(true);
+  };
+
+  const handleSaveClick = async () => {
+    try {
+      const res = await updatePost(token, post, post.id);
+      toast.success("Update post successfully");
+      setIsEditing(false);
+      getPost(postId);
+    } catch (err) {
+      console.log(err);
+      toast.error("Cannot update post");
+    }
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setPost((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  console.log(post)
 
   return (
     <div className="min-h-screen flex flex-col items-center bg-gray-100 py-10">
@@ -59,45 +88,90 @@ const ViewPost = () => {
           <FaArrowLeftLong size={24} />
         </div>
 
-        {/* หัวข้อโพสต์ */}
-        <h1 className="text-3xl font-bold text-gray-800 mb-4">{post.title}</h1>
-
-        {/* ปุ่ม Edit และ Delete */}
-        {user.user?.id === post.userId || user.user.role === "ADMIN" ? (
-          <div className="flex space-x-4 mb-4">
-            <button className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-500 transition-all shadow-md hover:shadow-lg">
-              Edit
-            </button>
-            <button
-              onClick={handleDelete}
-              className="bg-red-600 text-white px-6 py-2 rounded-lg hover:bg-red-500 transition-all shadow-md hover:shadow-lg"
-            >
-              Delete
-            </button>
+        {/* โหมดการแก้ไข */}
+        {isEditing ? (
+          <div>
+            <input
+              type="text"
+              name="title"
+              value={post.title}
+              onChange={handleInputChange}
+              placeholder="อัพเดตหัวข้อ"
+              className="text-3xl font-bold text-gray-800 mb-4 w-full border-b-2 border-gray-300 focus:outline-none break-words"
+            />
+            <textarea
+              name="content"
+              value={post.content}
+              onChange={handleInputChange}
+              placeholder="อัพเดตเนื้อหา"
+              rows="6"
+              className="text-base text-gray-700 leading-relaxed w-full border-b-2 border-gray-300 focus:outline-none break-words"
+            />
+            <div className="flex space-x-4 mt-4">
+              <button
+                onClick={handleSaveClick}
+                className="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-500 transition-all shadow-md hover:shadow-lg"
+              >
+                Save
+              </button>
+              <button
+                onClick={() => setIsEditing(false)}
+                className="bg-gray-600 text-white px-6 py-2 rounded-lg hover:bg-gray-500 transition-all shadow-md hover:shadow-lg"
+              >
+                Cancel
+              </button>
+            </div>
           </div>
-        ) : null}
+        ) : (
+          <div className="flex flex-col flex-wrap w-full">
+            {/* หัวข้อโพสต์ */}
+            <div className="flex flex-wrap w-full">
+              <h1 className="text-3xl font-bold text-gray-800 mb-4 break-words break-all">
+                {post.title}
+              </h1>
+            </div>
 
-        {/* ข้อมูลผู้โพสต์ */}
-        <h2 className="text-lg text-gray-600 mb-2">
-          โพสต์โดย: {post.user?.username || "Unknown User"}
-        </h2>
+            {/* ปุ่ม Edit และ Delete */}
+            {user.user?.id === post.userId || user.user.role === "ADMIN" ? (
+              <div className="flex space-x-4 mb-4">
+                <button
+                  onClick={handleEditClick}
+                  className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-500 transition-all shadow-md hover:shadow-lg"
+                >
+                  Edit
+                </button>
+                <button
+                  onClick={handleDelete}
+                  className="bg-red-600 text-white px-6 py-2 rounded-lg hover:bg-red-500 transition-all shadow-md hover:shadow-lg"
+                >
+                  Delete
+                </button>
+              </div>
+            ) : null}
 
-        {/* วันที่โพสต์ */}
-        <p className="text-sm text-gray-500 mb-2">
-          วันที่โพสต์: {publishedDate}
-        </p>
+            {/* ข้อมูลผู้โพสต์ */}
+            <h2 className="text-lg text-gray-600 mb-2 font-bold">
+              โพสต์โดย: {post.user?.username || "Unknown User"}
+            </h2>
 
-        {/* วันที่อัปเดต */}
-        {publishedDate !== updatedDate && (
-          <p className="text-sm text-red-500 mb-4">
-            อัพเดตเมื่อ: {updatedDate}
-          </p>
+            {/* วันที่โพสต์ */}
+            <p className="text-sm text-gray-500 mb-2">
+              วันที่โพสต์: {publishedDate}
+            </p>
+
+            {/* วันที่อัปเดต */}
+            {publishedDate !== updatedDate && (
+              <p className="text-sm text-red-500 mb-4">
+                อัพเดตเมื่อ: {updatedDate}
+              </p>
+            )}
+
+            {/* เนื้อหาโพสต์ */}
+            <p className="text-base text-gray-700 leading-relaxed break-words overflow-auto break-all">
+              {post.content}
+            </p>
+          </div>
         )}
-
-        {/* เนื้อหาโพสต์ */}
-        <p className="text-base text-gray-700 leading-relaxed">
-          {post.content}
-        </p>
       </div>
     </div>
   );

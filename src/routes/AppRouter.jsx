@@ -17,9 +17,10 @@ import Posts from "../pages/post/Posts";
 import ViewPost from "../pages/post/ViewPost";
 import ProtectRoute from "./ProtectRoute";
 import Unauthorization from "../pages/Unauthorization";
-import Manage from "../pages/admin/Manage";
 import useUserStore from "../stores/userStore";
 import CreatePost from "../pages/boardgame/CreatePost";
+import AddBoardgame from "../pages/admin/AddBoardgame";
+import DeleteBoardgame from "../pages/admin/DeleteBoardgame";
 
 const guestRouter = createBrowserRouter([
   {
@@ -57,7 +58,9 @@ const userRouter = createBrowserRouter([
     path: "/admin",
     element: <ProtectRoute element={<AdminLayout />} allow={["ADMIN"]} />,
     children: [
-      { index: true, element: <Manage /> },
+      { index: true, element: <AddBoardgame /> },
+      { path: "delete-boardgame", element: <DeleteBoardgame /> },
+      { path: "*", element: <Home /> },
     ],
   },
 ]);

@@ -31,7 +31,7 @@ const Boardgames = () => {
 
       {/* Boardgames */}
       <div className="w-full overflow-auto flex flex-wrap gap-4 justify-center">
-        {boardgames.map((boardgame) => (
+        {boardgames?.map((boardgame) => (
           <BoardgameItem
             key={boardgame.id}
             boardgame={boardgame}

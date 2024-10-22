@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { FaUser } from "react-icons/fa";
 import { IoLogOut } from "react-icons/io5";
-import { MdDashboard } from "react-icons/md";
+import { MdDashboard, MdDeleteForever } from "react-icons/md";
 import { FiHome } from "react-icons/fi";
 import useUserStore from "../../stores/userStore";
 const classLink =
@@ -15,16 +15,24 @@ const AdminSidebar = () => {
       {/* Profile */}
       <div className="flex flex-col items-center gap-2 py-4">
         <FaUser fontSize={48} />
-        <span className="text-lg ">Profile</span>
+        <span className="text-lg ">Admin</span>
       </div>
 
       {/* Menu Link */}
-      <div className="flex-1 py-4">
+      <div className="flex py-4">
         <Link className={classLink} to={"/admin"}>
           <span className="text-xl">
             <MdDashboard />
           </span>
-          Manage
+          Add Boardgame
+        </Link>
+      </div>
+      <div className="flex-1 py-4">
+        <Link className={classLink} to={"/admin/delete-boardgame"}>
+          <span className="text-xl">
+            <MdDeleteForever />
+          </span>
+          Delete Boardgame
         </Link>
       </div>
 

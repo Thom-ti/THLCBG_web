@@ -36,6 +36,11 @@ const UserNavbar = () => {
           tabIndex={0}
           className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow"
         >
+          {user.user.role === "ADMIN" && (
+            <li>
+              <Link to="/admin">ADMIN PAGE</Link>
+            </li>
+          )}
           <li>
             <Link to="/myshelf">MY SHELF</Link>
           </li>
