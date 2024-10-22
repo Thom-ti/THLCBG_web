@@ -41,4 +41,12 @@ const useUserStore = create(
   )
 );
 
+// const token = useUserStore.getState().token;
+
+// if (token) {
+//   axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+// }
+
+// มี token อยู่ในทุกลิงก์
+
 export default useUserStore;

@@ -1,15 +1,10 @@
 import React from "react";
-import useUserStore from "../../stores/userStore";
 import { Link } from "react-router-dom";
 
 const WebBoardgameItem = (props) => {
   const { boardgame, handleDelete } = props;
-  const token = useUserStore((state) => state.token);
-
-  // console.log(boardgame);
 
   return (
-    // <div>WebBoardgameItem</div>
     <tr className="hover:bg-gray-100 transition duration-200">
       <td className="border w-40 h-40 p-2">
         <img

@@ -1,7 +1,6 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import useUserStore from "../../stores/userStore";
 import useBoardgameStore from "../../stores/boardgameStore";
-import ShelfItem from "../shelf/ShelfItem";
 import WebBoardgameItem from "./WebBoardgameItem";
 import useAdminStore from "../../stores/adminStore";
 

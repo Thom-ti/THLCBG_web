@@ -2,13 +2,16 @@ import { useEffect, useState } from "react";
 import useUserStore from "../../stores/userStore";
 import useBoardgameStore from "../../stores/boardgameStore";
 import useShelfStore from "../../stores/shelfStore";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { toast } from "react-toastify";
 
 const ViewBoardGame = () => {
   const { boardgameId } = useParams();
   const [boardgame, setBoardgame] = useState({});
+
+  const navigate = useNavigate();
+
   const token = useUserStore((state) => state.token);
   const viewBoardGame = useBoardgameStore((state) => state.viewBoardGame);
   const addToShelf = useShelfStore((state) => state.addToShelf);
@@ -42,7 +45,7 @@ const ViewBoardGame = () => {
         {/* Back Button */}
         <div
           className="cursor-pointer mb-4"
-          onClick={() => window.history.back()}
+          onClick={() => window.history.back() || navigate("/boardgames")}
         >
           <FaArrowLeftLong className="text-blue-600 hover:text-blue-800 transition" />
         </div>

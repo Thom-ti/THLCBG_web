@@ -49,7 +49,7 @@ const CreatePost = () => {
         <div className="flex items-center mb-6">
           <div
             className="cursor-pointer text-gray-500 mr-4"
-            onClick={() => window.history.back()}
+            onClick={() => window.history.back() || navigate("/posts")}
           >
             <FaArrowLeftLong size={24} />
           </div>

@@ -15,10 +15,10 @@ import Register from "../pages/auth/Register";
 import Login from "../pages/auth/Login";
 import Posts from "../pages/post/Posts";
 import ViewPost from "../pages/post/ViewPost";
+import CreatePost from "../pages/post/CreatePost";
 import ProtectRoute from "./ProtectRoute";
 import Unauthorization from "../pages/Unauthorization";
 import useUserStore from "../stores/userStore";
-import CreatePost from "../pages/boardgame/CreatePost";
 import AddBoardgame from "../pages/admin/AddBoardgame";
 import DeleteBoardgame from "../pages/admin/DeleteBoardgame";
 

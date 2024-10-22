@@ -3,12 +3,13 @@ import useUserStore from "../../stores/userStore";
 import usePostStore from "../../stores/postStore";
 import { useNavigate, useParams } from "react-router-dom";
 import moment from "moment";
-import { FaArrowLeftLong } from "react-icons/fa6";
+import { FaArrowLeftLong, FaUser } from "react-icons/fa6";
 import { toast } from "react-toastify";
 
 const ViewPost = () => {
   const { postId } = useParams();
   const [post, setPost] = useState({});
+  const [isEditing, setIsEditing] = useState(false);
 
   const navigate = useNavigate();
 
@@ -45,12 +46,6 @@ const ViewPost = () => {
     }
   };
 
-  const [isEditing, setIsEditing] = useState(false);
-  const [updatedPost, setUpdatedPost] = useState({
-    title: post.title,
-    content: post.content,
-  });
-
   const handleEditClick = () => {
     setIsEditing(true);
   };
@@ -75,15 +70,13 @@ const ViewPost = () => {
     }));
   };
 
-  console.log(post)
-
   return (
     <div className="min-h-screen flex flex-col items-center bg-gray-100 py-10">
       <div className="w-full max-w-3xl bg-white p-8 rounded-lg shadow-lg">
         {/* ปุ่มย้อนกลับ */}
         <div
           className="cursor-pointer text-gray-500 mb-4"
-          onClick={() => window.history.back()}
+          onClick={() => window.history.back() || navigate("/posts")}
         >
           <FaArrowLeftLong size={24} />
         </div>
@@ -151,7 +144,7 @@ const ViewPost = () => {
 
             {/* ข้อมูลผู้โพสต์ */}
             <h2 className="text-lg text-gray-600 mb-2 font-bold">
-              โพสต์โดย: {post.user?.username || "Unknown User"}
+              โพสต์โดย: <FaUser /> {post.user?.username || "Unknown User"}
             </h2>
 
             {/* วันที่โพสต์ */}
