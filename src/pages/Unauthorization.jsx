@@ -1,9 +1,11 @@
-import React from 'react'
+import React from "react";
 
 const Unauthorization = () => {
   return (
-    <div>Unauthorization</div>
-  )
-}
+    <div className="flex items-center justify-center mt-10">
+      <img src="../../public/no-entry.png" alt="no-entry" />
+    </div>
+  );
+};
 
-export default Unauthorization
+export default Unauthorization;

@@ -49,9 +49,10 @@ const AddBoardgame = () => {
 
     try {
       const res = await addBoardGame(token, formData);
-      toast.success("Add Boardgame successfully");
       setForm(initialForm);
       setBoardgameImage(null);
+      window.location.reload(); // คำสั่งเพื่อ refresh หน้านี้
+      toast.success("Add Boardgame successfully");
     } catch (err) {
       console.log(err);
       toast.error("Cannot add Boardgame");
@@ -77,7 +78,9 @@ const AddBoardgame = () => {
         <div className="flex items-center mb-6">
           <div
             className="cursor-pointer text-gray-500 mr-4"
-            onClick={() => window.history.back() || navigate("/admin/delete-boardgame")}
+            onClick={() =>
+              window.history.back() || navigate("/admin/delete-boardgame")
+            }
           >
             <FaArrowLeftLong size={24} />
           </div>

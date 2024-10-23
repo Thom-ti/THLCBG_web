@@ -32,10 +32,10 @@ const ViewBoardGame = () => {
   const handleAddToShelf = async () => {
     try {
       await addToShelf(token, boardgame);
-      toast.success("Add to shelf successfully");
+      toast.success("เพิ่มเข้า My Shelf เรียบร้อย");
     } catch (err) {
       console.log(err);
-      toast.error("This boardgame is already in your shelf");
+      toast.error("มีบอร์ดเกมนี้อยู่ใน My Shelf แล้ว");
     }
   };
 
@@ -99,7 +99,7 @@ const ViewBoardGame = () => {
           className="bg-green-700 text-white px-6 py-2 rounded-lg mt-4 transition hover:bg-green-800"
           onClick={handleAddToShelf}
         >
-          Add to My Shelf
+          เพิ่มเข้า My Shelf
         </button>
 
         {/* Description */}

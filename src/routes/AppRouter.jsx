@@ -53,7 +53,14 @@ const userRouter = createBrowserRouter([
       { path: "*", element: <Home /> },
     ],
   },
-  { path: "unauthorization", element: <Unauthorization /> },
+  {
+    path: "/unauthorization",
+    element: <UserLayout />,
+    children: [
+      { index: true, element: <Unauthorization /> },
+      { path: "*", element: <Home /> },
+    ],
+  },
   {
     path: "/admin",
     element: <ProtectRoute element={<AdminLayout />} allow={["ADMIN"]} />,

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import useShelfStore from "../../stores/shelfStore";
 import useUserStore from "../../stores/userStore";
 import ShelfItem from "./ShelfItem";
@@ -21,8 +22,10 @@ const MyShelf = () => {
     try {
       await deleteFromShelf(token, id);
       await getMyShelf(token);
+      toast.success("ลบออกจาก My Shelf เรียบร้อย");
     } catch (err) {
       console.log(err);
+      toast.error("ไม่สามารถลบออกจาก My Shelf ได้");
     }
   };
 
@@ -70,10 +73,10 @@ const MyShelf = () => {
           <table className="table-auto w-full border border-gray-300">
             <thead>
               <tr className="bg-gray-200">
-                <th className="border text-center p-2">Game</th>
-                <th className="border text-center w-1/2 p-2">Name</th>
-                <th className="border text-center p-2">Status</th>
-                <th className="border text-center p-2">Delete</th>
+                <th className="border text-center p-2">บอร์ดเกม</th>
+                <th className="border text-center w-1/2 p-2">ชื่อ</th>
+                <th className="border text-center p-2">สถานะ</th>
+                <th className="border text-center p-2">ลบเกม</th>
               </tr>
             </thead>
             <tbody>

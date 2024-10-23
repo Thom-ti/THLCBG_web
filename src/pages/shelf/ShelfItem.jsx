@@ -1,18 +1,21 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 import useUserStore from "../../stores/userStore";
 import useShelfStore from "../../stores/shelfStore";
-import { toast } from "react-toastify";
 
 const ShelfItem = (props) => {
   const { boardgame, isThai, handleDelete } = props;
 
   const [status, setStatus] = useState(boardgame?.status || "Status");
   const [statusList, setStatusList] = useState([
-    "Status",
-    "Own",
-    "Previously Owned",
-    "Others",
+    "<ว่าง>",
+    "เป็นเจ้าของ",
+    "เคยครอบครอง",
+    "ต้องการซื้อ",
+    "ต้องการขาย",
+    "กำลังสั่งล่วงหน้า",
+    "อื่น ๆ",
   ]);
   const token = useUserStore((state) => state.token);
   const updateStatus = useShelfStore((state) => state.updateStatus);
@@ -23,7 +26,6 @@ const ShelfItem = (props) => {
         status: e.target.value || null,
       };
       const res = await updateStatus(token, body, id);
-      toast.success("Status Updated!");
     } catch (err) {
       console.log(err);
     }
@@ -31,25 +33,30 @@ const ShelfItem = (props) => {
 
   return (
     <tr className="hover:bg-gray-100 transition duration-200">
-      <td className="border w-40 h-40 p-2">
+      {/* รูปเกม */}
+      <td className="border w-40 h-40 p-2 text-center">
         <img
           src={boardgame.boardgame.boardgameImage}
           alt={boardgame.boardgame.name}
-          className="w-full h-full object-cover rounded-lg shadow-md"
+          className="w-24 h-24 object-cover rounded-lg shadow-md mx-auto"
         />
       </td>
-      <td className="border font-bold text-blue-500 hover:text-blue-700 transition duration-200">
+
+      {/* ชื่อเกม */}
+      <td className="border font-bold text-blue-500 hover:text-blue-700 transition duration-200 text-center align-middle">
         <Link to={`/boardgames/${boardgame.boardgame.id}`}>
           {(isThai && boardgame.boardgame.thaiName) || boardgame.boardgame.name}
         </Link>
       </td>
-      <td className="border">
+
+      {/* สถานะเกม */}
+      <td className="border text-center align-middle">
         <select
           className="select border rounded-lg p-2"
           onChange={(e) => handleOnChange(e, boardgame.boardgame.id)}
           defaultValue={status}
         >
-          <option disabled>Please select status.</option>
+          <option disabled>โปรดเลือกสถานะ...</option>
           {statusList.map((status) => (
             <option key={status} value={status}>
               {status}
@@ -57,12 +64,14 @@ const ShelfItem = (props) => {
           ))}
         </select>
       </td>
-      <td className="border">
+
+      {/* ปุ่ม Delete */}
+      <td className="border text-center align-middle">
         <button
-          className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg transition duration-200"
+          className="bg-red-600 hover:bg-red-700 text-white font-bold py-4 px-8 rounded-lg transition duration-200"
           onClick={() => handleDelete(boardgame.boardgame.id)}
         >
-          Delete
+          ลบเกม
         </button>
       </td>
     </tr>

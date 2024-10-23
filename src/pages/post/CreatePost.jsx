@@ -7,6 +7,7 @@ import usePostStore from "../../stores/postStore";
 
 const CreatePost = () => {
   const navigate = useNavigate();
+  const user = useUserStore((state) => state.user);
   const token = useUserStore((state) => state.token);
   const createPost = usePostStore((state) => state.createPost);
 
@@ -22,16 +23,18 @@ const CreatePost = () => {
     content: "",
   });
 
+  const [countLetter, setCountLetter] = useState(0);
+
   const handleOnSubmit = async (e) => {
     e.preventDefault();
     try {
       const res = await createPost(token, form);
-      toast.success("Create post successfully");
+      toast.success("สร้างโพสต์สําเร็จ");
       setForm(initialForm);
       navigate("/posts");
     } catch (err) {
       console.log(err);
-      toast.error("Cannot create post");
+      toast.error("ไม่สามารถสร้างโพสต์ได้");
     }
   };
 
@@ -40,6 +43,9 @@ const CreatePost = () => {
       ...form,
       [e.target.name]: e.target.value,
     });
+    if (e.target.name === "content") {
+      setCountLetter(e.target.value.length);
+    }
   };
 
   return (
@@ -93,6 +99,9 @@ const CreatePost = () => {
               <option disabled selected>
                 เลือกหมวดหมู่
               </option>
+              {user.user.role === "ADMIN" && (
+                <option value="ADMIN" className="text-red-500">โพสต์โดย Admin</option>
+              )}
               <option value="GENERAL">ทั่วไป</option>
               <option value="HOWTOPLAY">วิธีเล่น</option>
               <option value="REVIEW">รีวิว</option>
@@ -101,12 +110,17 @@ const CreatePost = () => {
 
           {/* เนื้อหาโพสต์ */}
           <div>
-            <label
-              htmlFor="content"
-              className="block text-lg font-medium text-gray-700"
-            >
-              เนื้อหา:
-            </label>
+            <div className="flex justify-between">
+              <label
+                htmlFor="content"
+                className="block text-lg font-medium text-gray-700"
+              >
+                เนื้อหา:
+              </label>
+              <p className="text-sm text-gray-500 mb-1">
+                จํานวนตัวอักษร: {countLetter} / 10000
+              </p>
+            </div>
             <textarea
               name="content"
               cols="30"

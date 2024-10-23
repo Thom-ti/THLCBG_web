@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { toast } from "react-toastify";
 import useUserStore from "../../stores/userStore";
 import useBoardgameStore from "../../stores/boardgameStore";
 import WebBoardgameItem from "./WebBoardgameItem";
@@ -15,11 +16,22 @@ const DeleteBoardgame = () => {
   }, []);
 
   const handleDelete = async (id) => {
+    // ใช้ window.confirm เพื่อถามผู้ใช้
+    const confirmDelete = window.confirm(
+      "คุณแน่ใจหรือไม่ว่าต้องการลบโพสต์นี้?"
+    );
+
+    if (!confirmDelete) {
+      return; // ถ้าไม่ยืนยันการลบให้หยุดการทำงาน
+    }
+
     try {
       await deleteBoardGame(token, id);
       await getAllBoardGames(token);
+      toast.success("Boardgame deleted successfully");
     } catch (err) {
       console.log(err);
+      toast.error("Cannot delete boardgame");
     }
   };
 
@@ -29,9 +41,9 @@ const DeleteBoardgame = () => {
         <table className="table-auto w-full border border-gray-300">
           <thead>
             <tr className="bg-gray-200">
-              <th className="border text-center p-2">Game</th>
-              <th className="border text-center w-1/2 p-2">Name</th>
-              <th className="border text-center p-2">Delete</th>
+              <th className="border text-center p-2">บอร์ดเกม</th>
+              <th className="border text-center w-1/2 p-2">ชื่อ</th>
+              <th className="border text-center p-2">ลบเกม</th>
             </tr>
           </thead>
           <tbody>

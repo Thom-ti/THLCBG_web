@@ -36,6 +36,7 @@ const Boardgames = () => {
             key={boardgame.id}
             boardgame={boardgame}
             isThai={isThai}
+            token={token}
           />
         ))}
       </div>

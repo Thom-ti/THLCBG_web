@@ -1,23 +1,33 @@
 import moment from "moment";
-import { FaUser } from "react-icons/fa6";
+import { FaUser, FaShieldAlt } from "react-icons/fa"; // เพิ่มไอคอนสำหรับ ADMIN
 import { Link } from "react-router-dom";
 
 const PostItem = (props) => {
   const { post } = props;
   const publishedDate = moment(`${post.createdAt}`).format("DD/MMM/YY");
   const updatedDate = moment(`${post.updatedAt}`).format("DD/MMM/YY");
-  // console.log("PostItem", post);
 
   return (
-    <div className="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200">
+    <div
+      className={`flex flex-col bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200 ${
+        post.type === "ADMIN" ? "border border-yellow-500 bg-yellow-50" : ""
+      }`}
+    >
       <Link to={`/posts/${post.id}`}>
-        <h2 className="text-blue-700 text-lg font-semibold hover:underline">
+        <h2 className="text-blue-700 text-lg font-semibold hover:underline mb-2">
           {post.title}
         </h2>
       </Link>
-      <div className="text-sm text-gray-600">
-        <FaUser />
+
+      <div className="flex items-center text-sm text-gray-600 mb-1">
+        <FaUser className="mr-1" />
         {post.user.username}
+        {post.type === "ADMIN" && (
+          <span className="text-yellow-600 ml-2 flex items-center">
+            <FaShieldAlt className="mr-1" />
+            ADMIN
+          </span>
+        )}
       </div>
 
       {/* วันที่โพสต์ */}

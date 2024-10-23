@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import useUserStore from "../../stores/userStore";
 import usePostStore from "../../stores/postStore";
 import PostItem from "./PostItem";
@@ -11,7 +11,17 @@ const Posts = () => {
 
   useEffect(() => {
     getAllPosts(token);
-  }, []);
+  }, [getAllPosts, token]);
+
+  // แยกโพสต์ที่เป็น ADMIN และโพสต์ทั่วไป
+  const adminPosts = Array.isArray(posts)
+    ? posts.filter((post) => post.type === "ADMIN")
+    : [];
+  const regularPosts = Array.isArray(posts)
+    ? posts.filter((post) => post.type !== "ADMIN")
+    : [];
+  // const adminPosts = posts?.filter(post => post.type === "ADMIN");
+  // const regularPosts = posts?.filter(post => post.type !== "ADMIN");
 
   return (
     <div className="min-h-screen flex flex-col items-center bg-gray-100 py-10">
@@ -27,9 +37,29 @@ const Posts = () => {
 
         {/* รายการโพสต์ */}
         <div className="space-y-6">
-          {posts?.length > 0 ? (
-            posts.map((post) => <PostItem key={post.id} post={post} />)
-          ) : (
+          {adminPosts.length > 0 && (
+            <div>
+              <h2 className="text-lg font-semibold">โพสต์จากผู้ดูแล</h2>
+              {adminPosts?.map((post) => (
+                <div key={post.id} className="mb-4">
+                  <PostItem post={post} />
+                </div>
+              ))}
+            </div>
+          )}
+
+          {regularPosts.length > 0 && (
+            <div>
+              <h2 className="text-lg font-semibold">โพสต์ทั่วไป</h2>
+              {regularPosts?.map((post) => (
+                <div key={post.id} className="mb-4">
+                  <PostItem post={post} />
+                </div>
+              ))}
+            </div>
+          )}
+
+          {posts.length === 0 && (
             <p className="text-gray-500 text-center">ยังไม่มีโพสต์ในตอนนี้</p>
           )}
         </div>

@@ -6,12 +6,12 @@ import { MdDashboard, MdDeleteForever } from "react-icons/md";
 import { FiHome } from "react-icons/fi";
 import useUserStore from "../../stores/userStore";
 const classLink =
-  "flex items-center hover:bg-neutral-700 hover:scale-105 hover:duration-200 active:bg-green-400 rounded-sm px-3 py-2 gap-2";
+  "flex items-center hover:bg-[#FFDD88] hover:scale-105 hover:text-black hover:duration-200 active:bg-green-400 rounded-sm px-3 py-2 gap-2";
 
 const AdminSidebar = () => {
   const { logout } = useUserStore((state) => state);
   return (
-    <div className="bg-neutral-900 w-60 p-4 flex flex-col text-white">
+    <div className="bg-[#FFB22C] w-60 p-4 flex flex-col text-white">
       {/* Profile */}
       <div className="flex flex-col items-center gap-2 py-4">
         <FaUser fontSize={48} />
