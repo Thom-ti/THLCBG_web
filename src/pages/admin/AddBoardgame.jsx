@@ -52,10 +52,10 @@ const AddBoardgame = () => {
       setForm(initialForm);
       setBoardgameImage(null);
       window.location.reload(); // คำสั่งเพื่อ refresh หน้านี้
-      toast.success("Add Boardgame successfully");
+      toast.success("เพิ่มบอร์ดเกมสําเร็จ");
     } catch (err) {
       console.log(err);
-      toast.error("Cannot add Boardgame");
+      toast.error("ไม่สามารถเพิ่มบอร์ดเกมได้");
     }
   };
 

@@ -28,10 +28,10 @@ const DeleteBoardgame = () => {
     try {
       await deleteBoardGame(token, id);
       await getAllBoardGames(token);
-      toast.success("Boardgame deleted successfully");
+      toast.success("ลบบอร์ดเกมสําเร็จ");
     } catch (err) {
       console.log(err);
-      toast.error("Cannot delete boardgame");
+      toast.error("ไม่สามารถลบบอร์ดเกมได้");
     }
   };
 
