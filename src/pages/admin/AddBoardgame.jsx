@@ -51,7 +51,6 @@ const AddBoardgame = () => {
       const res = await addBoardGame(token, formData);
       setForm(initialForm);
       setBoardgameImage(null);
-      window.location.reload(); // คำสั่งเพื่อ refresh หน้านี้
       toast.success("เพิ่มบอร์ดเกมสําเร็จ");
     } catch (err) {
       console.log(err);
@@ -102,6 +101,7 @@ const AddBoardgame = () => {
               </label>
               <input
                 name="name"
+                value={form.name}
                 type="text"
                 placeholder="ชื่อบอร์ดเกม"
                 className="input input-bordered w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -120,6 +120,7 @@ const AddBoardgame = () => {
               </label>
               <input
                 name="thaiName"
+                value={form.thaiName}
                 type="text"
                 placeholder="ชื่อบอร์ดเกมภาษาไทย"
                 className="input input-bordered w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -156,6 +157,7 @@ const AddBoardgame = () => {
               </label>
               <input
                 name="minPlayer"
+                value={form.minPlayer}
                 type="number"
                 placeholder="จำนวนผู้เล่นขั้นต่ำ"
                 className="input input-bordered w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -174,6 +176,7 @@ const AddBoardgame = () => {
               </label>
               <input
                 name="maxPlayer"
+                value={form.maxPlayer}
                 type="number"
                 placeholder="จำนวนผู้เล่นสูงสุด"
                 className="input input-bordered w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -192,6 +195,7 @@ const AddBoardgame = () => {
               </label>
               <input
                 name="age"
+                value={form.age}
                 type="number"
                 placeholder="อายุที่แนะนำ (ปี)"
                 className="input input-bordered w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -210,6 +214,7 @@ const AddBoardgame = () => {
               </label>
               <select
                 name="type"
+                value={form.type}
                 className="select select-bordered w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 required
                 onChange={handleOnChange}
@@ -232,6 +237,7 @@ const AddBoardgame = () => {
               </label>
               <select
                 name="category"
+                value={form.category}
                 className="select select-bordered w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 required
                 onChange={handleOnChange}
@@ -261,6 +267,7 @@ const AddBoardgame = () => {
               </label>
               <input
                 name="thaiLC"
+                value={form.thaiLC}
                 type="text"
                 placeholder="ThaiLC"
                 className="input input-bordered w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -279,6 +286,7 @@ const AddBoardgame = () => {
               </label>
               <textarea
                 name="description"
+                value={form.description}
                 cols="30"
                 rows="6"
                 placeholder="คำอธิบายเกี่ยวกับบอร์ดเกม"
