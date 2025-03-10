@@ -219,7 +219,7 @@ const AddBoardgame = () => {
                 required
                 onChange={handleOnChange}
               >
-                <option disabled selected>
+                <option value="" disabled>
                   เลือกประเภท
                 </option>
                 <option value="CORE">ตัวหลัก (Core)</option>
@@ -242,7 +242,7 @@ const AddBoardgame = () => {
                 required
                 onChange={handleOnChange}
               >
-                <option disabled selected>
+                <option value="" disabled>
                   เลือกหมวดหมู่
                 </option>
                 <option value="STRATEGY">กลยุทธ์ (Strategy)</option>
